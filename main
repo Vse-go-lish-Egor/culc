@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args) {
+        boolean repeat;
+        do{
+            try {
+                Scanner scan = new Scanner(System.in);
+
+
+                String str = scan.nextLine().replaceAll("\\s", "");
+                char[] strChar = str.toCharArray();
+                System.out.println(str);
+                String numInArray = "";
+                for (int i = 0; i < strChar.length; i++) {
+                    System.out.println(strChar[i]);
+                }
+                ArrayList<Character> operation = new ArrayList<>();
+                ArrayList<String> listOfNum = new ArrayList();
+                for (int i = 0; i < strChar.length; i++) {
+
+                    if (strChar[i] == '*' || strChar[i] == '+' || strChar[i] == '-') {
+                        listOfNum.add(numInArray);
+                        operation.add(strChar[i]);
+                        numInArray = "";
+
+                        continue;
+                    }
+
+                    numInArray += strChar[i];
+                    if (strChar.length - 1 == i) {
+                        listOfNum.add(numInArray);
+                    }
+
+                }
+                System.out.println(listOfNum.toString());
+                System.out.println(operation.toString());
+                ArrayList<Integer> justNum = new ArrayList();
+                for (int i = 0; i < listOfNum.size(); i++) {
+                    justNum.add(Integer.parseInt(listOfNum.get(i)));
+                }
+
+                int iterationOfOperation = 0;
+                int num = justNum.get(0);
+                System.out.println(num);
+                for (int i = 1; i < justNum.size(); i++) {
+                    if (operation.get(iterationOfOperation).equals('*')) {
+                        num *= justNum.get(i);
+                        System.out.println(num);
+
+                        if (iterationOfOperation != operation.size()) iterationOfOperation++;
+                        continue;
+                    }
+                    if (operation.get(iterationOfOperation).equals('+')) {
+                        num += justNum.get(i);
+                        System.out.println(num);
+
+                        if (iterationOfOperation != operation.size()) iterationOfOperation++;
+                        continue;
+                    }
+                    if (operation.get(iterationOfOperation).equals('-')) {
+                        num -= justNum.get(i);
+                        System.out.println(num);
+
+                        if (iterationOfOperation != operation.size()) iterationOfOperation++;
+                        continue;
+                    }
+
+                }
+                System.out.println("Посчитано "+ num);
+
+                repeat = false;
+            }catch (Exception e){
+                System.out.println("Введи число корректно");
+                repeat=true;
+            }
+        }while(repeat);
+    }
+}
